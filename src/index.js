@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import Main from "./main";
+import ErrorHandler from "components/ErrorHandler";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
+    console.error(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <ErrorHandler />;
+    }
+    return this.props.children;
+  }
+}
+
+const root = createRoot(document.getElementById("root"));
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <ErrorBoundary>
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+  </ErrorBoundary>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
