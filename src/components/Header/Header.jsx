@@ -24,13 +24,15 @@ const Header = () => {
           <Typography>Header</Typography>
         </Grid>
         <Grid item xs={2} sx={headerTheme.centerText}>
-          <GenericButton
-            txtToDisplay={BUTTON_TXTS.ADD_NEW_CATEGORY}
-            disabled={false}
-            onClick={() => {
-              addNewCatHandler();
-            }}
-          />
+          <span style={{ marginRight: "-4vw" }}>
+            <GenericButton
+              txtToDisplay={BUTTON_TXTS.ADD_NEW_CATEGORY}
+              disabled={false}
+              onClick={() => {
+                addNewCatHandler();
+              }}
+            />
+          </span>
         </Grid>
       </Grid>
     </AppBar>
