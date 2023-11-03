@@ -2,12 +2,12 @@ import React from "react";
 import { Paper, Modal, Box } from "@mui/material";
 import genericModalStyles from "./GenericModalStyles";
 
-const GenericModal = ({ isOpen, onClose, childern }) => {
+const GenericModal = ({ isOpen, onClose, children }) => {
   return (
     <div>
       <Paper>
         <Modal open={isOpen} onClose={onClose}>
-          <Box sx={genericModalStyles.rootContainer}>{childern}</Box>
+          <Box sx={genericModalStyles.rootContainer}>{children}</Box>
         </Modal>
       </Paper>
     </div>

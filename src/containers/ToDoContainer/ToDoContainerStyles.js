@@ -1,6 +1,7 @@
 const toDoContainerStyles = {
   mainContainer: {
-    justifyContent: "space-between",
+    justifyContent: "center",
+    gap: "10vw",
   },
   eachListContainer: {
     border: "1px solid black",

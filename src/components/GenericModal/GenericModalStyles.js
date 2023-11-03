@@ -8,8 +8,8 @@ const genericModalStyles = {
     height: 400,
     border: "2px solid #000",
     boxShadow: 24,
-    borderRadius: 5,
-    backgroundColor: "lightskyblue",
+    borderRadius: 3,
+    backgroundColor: "white",
   },
 };
 

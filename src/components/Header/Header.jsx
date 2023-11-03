@@ -5,14 +5,23 @@ import { useDispatch } from "react-redux";
 import MainLogo from "assets/MainLogo.svg";
 import headerTheme from "./HeaderStyles";
 import GenericButton from "components/GenericButton";
-import { BUTTON_TXTS } from "constants/constants";
-import { ADD_NEW_CATEGORY_BUTTON } from "constants/actionTypes";
+import { BUTTON_TXTS, MODAL_TYPES } from "constants/constants";
+import {
+  ADD_NEW_CATEGORY_BUTTON,
+  ADD_MODAL_CATEGORY,
+} from "constants/actionTypes";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const addNewCatHandler = () => {
     dispatch({ type: ADD_NEW_CATEGORY_BUTTON });
+    dispatch({
+      type: ADD_MODAL_CATEGORY,
+      payload: {
+        modalType: MODAL_TYPES.ADD_NEW_CATEGORY_MENU,
+      },
+    });
   };
   return (
     <AppBar position="fixed" sx={headerTheme.headerMain}>
