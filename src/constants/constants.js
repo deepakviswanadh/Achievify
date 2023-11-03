@@ -12,3 +12,7 @@ export const TO_DO_HEADERS = [
     name: "COMPLETED",
   },
 ];
+
+export const BUTTON_TXTS = {
+  ADD_NEW_CATEGORY: "Add new category",
+};

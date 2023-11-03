@@ -1,8 +1,8 @@
-import mockReducer from './mockReducer';
-import { combineReducers } from 'redux';
+import headerReducer from "./headerReducer";
+import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  mockReducer,
+  headerReducer,
 });
 
 export default rootReducer;
