@@ -1,13 +1,25 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState, useCallback } from "react";
 import "./PureOptionsBox.css";
 
-const PureOptionsBox = ({ isVisible }) => {
-  const doS = (event, root) => {
-    var isClickInside = root.contains(event.target);
-  };
+const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
+  const [styleToApply, setStyleToApply] = useState({});
+
+  const doS = useCallback(
+    (event, root) => {
+      let isClickInside = root.contains(event.target);
+      if (isClickInside) {
+        console.log("inside click");
+      } else {
+        setIsVisible(!isVisible);
+        console.log("outside click");
+      }
+    },
+    [setIsVisible, isVisible]
+  );
 
   useLayoutEffect(() => {
     const root = document.querySelector("#options-root");
+
     const clickHandler = (event) => {
       doS(event, root);
     };
@@ -15,16 +27,29 @@ const PureOptionsBox = ({ isVisible }) => {
       window.addEventListener("click", clickHandler, {
         capture: true,
       });
+      const parent = document.querySelector(`${elementPos}`);
+      const { x, y, height } = parent?.getBoundingClientRect();
+      let style = {
+        position: "absolute",
+        top: `${y + height || 0}px`,
+        left: `${x || 0}px`,
+      };
+      setStyleToApply(style);
     }
     return () => {
       window.removeEventListener("click", clickHandler, {
         capture: true,
       });
     };
-  }, [isVisible]);
+  }, [isVisible, elementPos]);
 
   return isVisible ? (
-    <div id="options-root">
+    <div
+      id="options-root"
+      style={{
+        ...styleToApply,
+      }}
+    >
       <div></div>
       <div></div>
     </div>

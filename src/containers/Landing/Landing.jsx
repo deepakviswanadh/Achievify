@@ -56,7 +56,6 @@ const Landing = () => {
       {/* <GenericPopUp /> */}
       {/* <PureDialogBox /> */}
 
-      <PureOptionsBox isVisible={isVisible} />
       <button
         id="click-me"
         style={{ transform: "translate(10px,400px)" }}
@@ -66,6 +65,11 @@ const Landing = () => {
       >
         Click me
       </button>
+      <PureOptionsBox
+        isVisible={isVisible}
+        elementPos={"#click-me"}
+        setIsVisible={setIsVisible}
+      />
     </>
   );
 };
