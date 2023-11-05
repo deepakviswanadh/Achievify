@@ -1,0 +1,19 @@
+#options-root{
+    position: absolute;
+    background-color: rgba(247, 235, 235, 0.902);
+    height: 25vh;
+    opacity: inherit;
+    width: 17vw;
+    border: 1px solid black;
+    opacity: 0.7;
+    border-radius: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    }
+
+.not-visible {
+    display: none;
+}    
+  
+
+  

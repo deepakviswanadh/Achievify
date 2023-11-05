@@ -10,8 +10,9 @@ const toDoListReducer = produce((draft, action) => {
   switch (action.type) {
     case ADD_NEW_CATEGORY:
       let newType = {
-        idx: new Date().toLocaleTimeString(),
+        idx: +new Date().toLocaleTimeString(),
         name: action.payload.catergoryName,
+        data: [],
       };
       return {
         ...draft,

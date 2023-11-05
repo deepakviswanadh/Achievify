@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import ToDoContainer from "containers/ToDoContainer";
@@ -8,9 +8,14 @@ import GenericModal from "components/GenericModal";
 import { ADD_NEW_CATEGORY_BUTTON } from "constants/actionTypes";
 import AddNewListMenu from "components/AddNewListMenu";
 import { MODAL_TYPES } from "constants/constants";
+import GenericPopUp from "components/GenericPopUp";
+import PureDialogBox from "purecomponents/PureDialogBox";
+import PureOptionsBox from "purecomponents/PureOptionsBox";
 
 const Landing = () => {
   const dispatch = useDispatch();
+
+  const [isVisible, setIsVisible] = useState(false);
 
   const modalType = useSelector((state) => {
     return state.appLevelReducer.modalType;
@@ -33,7 +38,7 @@ const Landing = () => {
   };
   return (
     <>
-      <Grid container direction="column">
+      {/* <Grid container direction="column">
         <Grid item xl={2}>
           <Header />
         </Grid>
@@ -47,7 +52,20 @@ const Landing = () => {
           closeModal();
         }}
         children={modalComponents[modalType]}
-      />
+      /> */}
+      {/* <GenericPopUp /> */}
+      {/* <PureDialogBox /> */}
+
+      <PureOptionsBox isVisible={isVisible} />
+      <button
+        id="click-me"
+        style={{ transform: "translate(10px,400px)" }}
+        onClick={() => {
+          setIsVisible(!isVisible);
+        }}
+      >
+        Click me
+      </button>
     </>
   );
 };

@@ -1,12 +1,26 @@
 import React from "react";
+import { Grid, Typography } from "@mui/material";
 import eachListContainerInternal from "./ListContainerStyles";
-import { Box, Typography } from "@mui/material";
+import ListBody from "./ListBody";
 
 const LandingContainer = ({ eachHeader }) => {
   return (
-    <Box sx={eachListContainerInternal.mainBody}>
-      <Typography>{eachHeader.name}</Typography>
-    </Box>
+    <Grid direction="column" container sx={eachListContainerInternal.mainBody}>
+      <Grid
+        item
+        xs={1}
+        sx={{
+          ...eachListContainerInternal.eachItemContainer,
+        }}
+      >
+        <Typography sx={eachListContainerInternal.eachCatTitle}>
+          {eachHeader.name}
+        </Typography>
+      </Grid>
+      <Grid item xs={11} sx={eachListContainerInternal.eachItemContainer}>
+        <ListBody list={eachHeader?.list || []} />
+      </Grid>
+    </Grid>
   );
 };
 
