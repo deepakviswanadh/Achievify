@@ -12,6 +12,7 @@ import GenericPopUp from "components/GenericPopUp";
 import PureDialogBox from "purecomponents/PureDialogBox";
 import PureOptionsBox from "purecomponents/PureOptionsBox";
 import PureAccordion from "purecomponents/PureAccordion";
+import PureRating from "purecomponents/PureRating";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const Landing = () => {
           "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
         }
       />
+      <PureRating count={5} />
     </>
   );
 };
