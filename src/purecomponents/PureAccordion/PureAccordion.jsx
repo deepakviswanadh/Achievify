@@ -10,7 +10,6 @@ const PureAccordion = ({ titleTxt, bodyTxt }) => {
     setHideBody((prev) => !prev);
     if (bodyRef.current) {
       const maxHeight = hideBody ? bodyRef.current.scrollHeight + "px" : "0";
-      console.log("maxHeight", maxHeight, hideBody);
       bodyRef.current.style.height = maxHeight;
     }
   };
@@ -35,7 +34,7 @@ const PureAccordion = ({ titleTxt, bodyTxt }) => {
         cursor: "pointer",
       }}
     >
-      <PureAccordionTitle titleTxt={titleTxt} />
+      <PureAccordionTitle titleTxt={titleTxt} hideBody={hideBody} />
       <div style={bodyStyle} ref={bodyRef}>
         <PureAccordionBody bodyTxt={bodyTxt} />
       </div>

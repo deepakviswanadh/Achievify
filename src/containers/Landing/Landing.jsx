@@ -78,6 +78,18 @@ const Landing = () => {
           "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
         }
       />
+      <PureAccordion
+        titleTxt={"test 123"}
+        bodyTxt={
+          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+        }
+      />
+      <PureAccordion
+        titleTxt={"test 123"}
+        bodyTxt={
+          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+        }
+      />
     </>
   );
 };
