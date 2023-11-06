@@ -1,18 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
 import PureAccordionBody from "./PureAccordionBody";
 import PureAccordionTitle from "./PureAccordionTitle";
 
 const PureAccordion = ({ titleTxt, bodyTxt }) => {
-  const [hideBody, setHideBody] = useState(true);
+  const [hideBody, setHideBody] = useState(false);
   const bodyRef = useRef(null);
 
-  const toggleBody = () => {
+  const toggleBody = useCallback(() => {
     setHideBody((prev) => !prev);
     if (bodyRef.current) {
       const maxHeight = hideBody ? bodyRef.current.scrollHeight + "px" : "0";
       bodyRef.current.style.height = maxHeight;
     }
-  };
+  }, [hideBody]);
+
+  useLayoutEffect(() => {
+    toggleBody();
+  }, []);
 
   const bodyStyle = {
     transition: "height 0.4s ease",
@@ -24,7 +28,9 @@ const PureAccordion = ({ titleTxt, bodyTxt }) => {
 
   return (
     <div
-      onClick={toggleBody}
+      onClick={() => {
+        toggleBody();
+      }}
       style={{
         width: "90vw",
         border: "1px solid black",
