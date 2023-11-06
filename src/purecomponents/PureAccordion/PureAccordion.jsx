@@ -15,7 +15,6 @@ const PureAccordion = ({ titleTxt, bodyTxt }) => {
   };
 
   const bodyStyle = {
-    maxHeight: hideBody ? "0" : "100%",
     transition: "height 0.4s ease",
     textAlign: "justify",
     wordBreak: "break-all",
