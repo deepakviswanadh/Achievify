@@ -10,11 +10,11 @@ const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
       if (isClickInside) {
         console.log("inside click");
       } else {
-        setIsVisible(!isVisible);
+        setIsVisible(false);
         console.log("outside click");
       }
     },
-    [setIsVisible, isVisible]
+    [setIsVisible]
   );
 
   useLayoutEffect(() => {
@@ -31,7 +31,7 @@ const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
       const { x, y, height } = parent?.getBoundingClientRect();
       let style = {
         position: "absolute",
-        top: `${y + height || 0}px`,
+        top: `${y + height + 20 || 0}px`,
         left: `${x || 0}px`,
       };
       setStyleToApply(style);
@@ -41,7 +41,7 @@ const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
         capture: true,
       });
     };
-  }, [isVisible, elementPos]);
+  }, [isVisible, doS, elementPos]);
 
   return isVisible ? (
     <div

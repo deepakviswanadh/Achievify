@@ -11,6 +11,7 @@ import { MODAL_TYPES } from "constants/constants";
 import GenericPopUp from "components/GenericPopUp";
 import PureDialogBox from "purecomponents/PureDialogBox";
 import PureOptionsBox from "purecomponents/PureOptionsBox";
+import PureAccordion from "purecomponents/PureAccordion";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -59,8 +60,9 @@ const Landing = () => {
       <button
         id="click-me"
         style={{ transform: "translate(10px,400px)" }}
-        onClick={() => {
-          setIsVisible(!isVisible);
+        onClick={(event) => {
+          setIsVisible((prev) => !prev);
+          event.stopPropagation();
         }}
       >
         Click me
@@ -69,6 +71,12 @@ const Landing = () => {
         isVisible={isVisible}
         elementPos={"#click-me"}
         setIsVisible={setIsVisible}
+      />
+      <PureAccordion
+        titleTxt={"test 123"}
+        bodyTxt={
+          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+        }
       />
     </>
   );
