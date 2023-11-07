@@ -43,7 +43,7 @@ const PureRating = ({ count }) => {
         return generateAStar(each);
       })}
       <div>{`${
-        Object.values(rated).filter((each) => each == true).length
+        Object.values(rated).filter((each) => !!each).length
       } star(s) selected`}</div>
     </div>
   );

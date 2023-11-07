@@ -1,8 +1,9 @@
 import { produce } from "immer";
-import { ADD_MODAL_CATEGORY } from "constants/actionTypes";
+import { ADD_MODAL_CATEGORY, MOCK_STORE_IMGS } from "constants/actionTypes";
 
 const initialState = {
   modalType: null,
+  fetchedData: [],
 };
 
 const appLevelReducer = produce((draft, action) => {
@@ -12,7 +13,8 @@ const appLevelReducer = produce((draft, action) => {
         ...draft,
         modalType: action.payload.modalType,
       };
-
+    case MOCK_STORE_IMGS:
+      return { ...draft, fetchedData: action.payload.imgList };
     default:
       return draft;
   }

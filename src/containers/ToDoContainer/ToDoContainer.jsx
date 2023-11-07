@@ -4,7 +4,6 @@ import ListContainer from "components/ListContainer";
 import toDoContainerStyles from "./ToDoContainerStyles";
 
 const ToDoContainer = ({ categoriesList }) => {
-  console.log("categoriesList", categoriesList);
   return (
     <Grid
       container
