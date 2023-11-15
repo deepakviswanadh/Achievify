@@ -3,13 +3,13 @@ import PureAccordionBody from "./PureAccordionBody";
 import PureAccordionTitle from "./PureAccordionTitle";
 
 const PureAccordion = ({ titleTxt, bodyTxt }) => {
-  const [hideBody, setHideBody] = useState(false);
+  const [hideBody, setHideBody] = useState(true);
   const bodyRef = useRef(null);
 
   const toggleBody = useCallback(() => {
     setHideBody((prev) => !prev);
     if (bodyRef.current) {
-      const maxHeight = hideBody ? bodyRef.current.scrollHeight + "px" : "0";
+      const maxHeight = !hideBody ? bodyRef.current.scrollHeight + "px" : "0";
       bodyRef.current.style.height = maxHeight;
     }
   }, [hideBody]);

@@ -6,9 +6,3 @@
     width: 300px;
     text-align: center;
   }
-  
-  .slide.active {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  

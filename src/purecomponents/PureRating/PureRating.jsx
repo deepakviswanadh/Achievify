@@ -6,8 +6,8 @@ const PureRating = ({ count }) => {
 
   useLayoutEffect(() => {
     let result = [];
-    for (let i = 0; i < count; i++) {
-      result.push({ id: i, rated: false });
+    for (let eachNumber = 0; eachNumber < count; eachNumber++) {
+      result.push({ id: eachNumber, rated: false });
     }
     setStarData([...result]);
   }, [count]);
