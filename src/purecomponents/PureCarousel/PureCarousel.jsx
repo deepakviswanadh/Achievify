@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import EachSlide from "./EachSlide";
 import GenericButton from "components/GenericButton";
@@ -11,41 +11,62 @@ const PureCarousel = () => {
     slide: "",
     active: true,
   });
+  const [slideAnimation, setSlideAnimation] = useState("");
+  const [direction, setDirection] = useState("");
   const imgList = useSelector((state) => state.appLevelReducer.fetchedData);
 
+  const updateId = (newId) => {
+    setVisibleId(newId);
+  };
+
+  const changeSlide = () => {
+    const animationOut =
+      direction === "prev" ? "slide-out-prev" : "slide-out-out";
+    const animationIn =
+      direction === "next" ? "slide-in-next" : "slide-in-prev";
+
+    setSlideAnimation("");
+    setTimeout(() => {
+      setSlideAnimation(animationIn);
+    }, 10);
+  };
+
   const previousSlide = () => {
-    setVisibleId(visibleId == 0 ? imgList.length - 1 : visibleId - 1);
+    updateId(visibleId == 0 ? imgList.length - 1 : visibleId - 1);
+    setDirection("prev");
   };
 
   const nextSlide = () => {
-    setVisibleId(visibleId == imgList.length - 1 ? 0 : visibleId + 1);
+    updateId(visibleId == imgList.length - 1 ? 0 : visibleId + 1);
+    setDirection("next");
   };
 
-  useEffect(() => {
-    imgList != [] &&
-      setSlideVisible({
-        ref: imgList[visibleId]?.ref,
-        slide: imgList[visibleId],
-        active: true,
-      });
+  const updateSlide = useCallback(() => {
+    setSlideVisible({
+      ref: imgList[visibleId]?.ref,
+      slide: imgList[visibleId],
+      active: true,
+    });
   }, [imgList, visibleId]);
+
+  useEffect(() => {
+    if (imgList != []) {
+      updateSlide();
+    }
+  }, [imgList, visibleId]);
+
+  useEffect(() => {
+    changeSlide();
+  }, [slideVisible]);
 
   return (
     <div>
-      <div className="carousel-container">
+      <div className={`carousel-container ${slideAnimation}`}>
         <EachSlide
           slideUrl={slideVisible?.ref}
           slide={slideVisible?.slide}
           active={slideVisible?.active}
         />
-        {imgList
-          .filter((eachSlide) => eachSlide?.id != visibleId)
-          .map((slide, index) => (
-            <div key={slide.id}>
-              <EachSlide slideUrl={slide.ref} slide={slide} active={false} />
-              <span>{slide?.id}</span>
-            </div>
-          ))}
       </div>
       <div>
         <GenericButton
