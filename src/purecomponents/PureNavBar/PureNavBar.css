@@ -1,0 +1,7 @@
+#header-root {
+    display: flex;
+    background-color: red;
+    height: 64px;
+    align-items: center;
+    border-radius: 2px;
+}

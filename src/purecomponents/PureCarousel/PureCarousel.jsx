@@ -9,30 +9,13 @@ const PureCarousel = () => {
   const [slideVisible, setSlideVisible] = useState({
     ref: "",
     slide: "",
-    active: true,
   });
   const [slideAnimation, setSlideAnimation] = useState("");
   const [direction, setDirection] = useState("");
   const imgList = useSelector((state) => state.appLevelReducer.fetchedData);
 
-  const updateId = (newId) => {
-    setVisibleId(newId);
-  };
-
   const animateSlide = useCallback(() => {
-    console.log("called me");
-    let animationIn;
-    switch (direction) {
-      case "next":
-        animationIn = "slide-in-next";
-        break;
-      case "prev":
-        animationIn = "slide-in-prev";
-        break;
-      default:
-        return "";
-    }
-
+    let animationIn = `slide-in-${direction}`;
     setSlideAnimation("");
     setTimeout(() => {
       setSlideAnimation(animationIn);
@@ -40,12 +23,12 @@ const PureCarousel = () => {
   }, [direction]);
 
   const previousSlide = () => {
-    updateId(visibleId == 0 ? imgList.length - 1 : visibleId - 1);
+    setVisibleId(visibleId == 0 ? imgList.length - 1 : visibleId - 1);
     setDirection("prev");
   };
 
   const nextSlide = () => {
-    updateId(visibleId == imgList.length - 1 ? 0 : visibleId + 1);
+    setVisibleId(visibleId == imgList.length - 1 ? 0 : visibleId + 1);
     setDirection("next");
   };
 
@@ -54,7 +37,6 @@ const PureCarousel = () => {
       setSlideVisible({
         ref: imgList[visibleId]?.ref,
         slide: imgList[visibleId],
-        active: true,
       });
     }
   }, [imgList, visibleId]);
@@ -65,7 +47,6 @@ const PureCarousel = () => {
         <EachSlide
           slideUrl={slideVisible?.ref}
           slide={slideVisible?.slide}
-          active={slideVisible?.active}
           animateSlide={animateSlide}
         />
       </div>

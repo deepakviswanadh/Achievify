@@ -17,6 +17,9 @@ import PureOptionsBox from "purecomponents/PureOptionsBox";
 import PureAccordion from "purecomponents/PureAccordion";
 import PureRating from "purecomponents/PureRating";
 import PureCarousel from "purecomponents/PureCarousel";
+import PureNavBar from "purecomponents/PureNavBar";
+import UploadImage from "components/UploadImage";
+import Scanner from "components/Scanner";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -48,60 +51,66 @@ const Landing = () => {
   };
   return (
     <>
-      {/* <Grid container direction="column">
-        <Grid item xl={2}>
-          <Header />
-        </Grid>
-        <Grid item xl={10} sx={LandingPageStyles.toDoContainer}>
-          <ToDoContainer categoriesList={categoriesList} />
-        </Grid>
-      </Grid>
-      <GenericModal
-        isOpen={openModalStatus}
-        onClose={() => {
-          closeModal();
-        }}
-        children={modalComponents[modalType]}
-      /> */}
-      {/* <GenericPopUp /> */}
-      {/* <PureDialogBox /> */}
-
-      <button
-        id="click-me"
-        style={{ transform: "translate(10px,400px)" }}
-        onClick={(event) => {
-          setIsVisible((prev) => !prev);
-          event.stopPropagation();
+      <div
+        style={{
+          display: "grid",
+          gridAutoFlow: "row",
+          gridAutoRows: "minmax(64px,auto)",
+          height: "97vh",
+          overflow: "hidden",
         }}
       >
-        Click me
-      </button>
-      <PureOptionsBox
-        isVisible={isVisible}
-        elementPos={"#click-me"}
-        setIsVisible={setIsVisible}
-      />
-      <PureAccordion
-        titleTxt={"test 123"}
-        bodyTxt={
-          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-        }
-      />
-      <PureAccordion
-        titleTxt={"test 123"}
-        bodyTxt={
-          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-        }
-      />
-      <PureAccordion
-        titleTxt={"test 123"}
-        bodyTxt={
-          "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-        }
-      />
-      <PureRating count={5} />
+        <div style={{ gridRow: "1/2", overflow: "hidden" }}>
+          <PureNavBar />
+        </div>
 
-      <PureCarousel />
+        <div
+          style={{
+            height: "calc(100vh - 70px)",
+            overflowY: "auto",
+            gridRow: "2/2",
+          }}
+        >
+          <button
+            id="click-me"
+            style={{ transform: "translate(10px,400px)" }}
+            onClick={(event) => {
+              setIsVisible((prev) => !prev);
+              event.stopPropagation();
+            }}
+          >
+            Click me
+          </button>
+          <PureOptionsBox
+            isVisible={isVisible}
+            elementPos={"#click-me"}
+            setIsVisible={setIsVisible}
+          />
+          <PureAccordion
+            titleTxt={"test 123"}
+            bodyTxt={
+              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+            }
+          />
+          <PureAccordion
+            titleTxt={"test 123"}
+            bodyTxt={
+              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+            }
+          />
+          <PureAccordion
+            titleTxt={"test 123"}
+            bodyTxt={
+              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
+            }
+          />
+          <PureRating count={5} />
+
+          <PureCarousel />
+        </div>
+      </div>
+      {/* <UploadImage /> */}
+      {/* <Scanner /> */}
     </>
   );
 };

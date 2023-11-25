@@ -5,11 +5,15 @@ const EachSlide = ({ slideUrl, slide, animateSlide }) => {
   const imgRef = useRef(null);
 
   const constructImg = useMemo(() => {
-    return <img src={slideUrl} alt="" height="250" width="250" />;
+    return slideUrl == "" ? (
+      <p>loading...</p>
+    ) : (
+      <img src={slideUrl} alt="" height="250" width="250" />
+    );
   }, [slideUrl]);
 
   useEffect(() => {
-    animateSlide();
+    slideUrl != "" && animateSlide();
   }, [constructImg]);
 
   return <div ref={imgRef}>{constructImg}</div>;
