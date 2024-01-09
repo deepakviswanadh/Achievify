@@ -1,7 +1,12 @@
 import React, { useLayoutEffect, useState, useCallback } from "react";
 import "./PureOptionsBox.css";
 
-const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
+const PureOptionsBox = ({
+  isVisible,
+  elementPos,
+  setIsVisible,
+  childComponent,
+}) => {
   const [styleToApply, setStyleToApply] = useState({});
 
   const doS = useCallback(
@@ -33,6 +38,8 @@ const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
         position: "absolute",
         top: `${y + height + 20 || 0}px`,
         left: `${x || 0}px`,
+        height: "15rem",
+        width: "35rem",
       };
       setStyleToApply(style);
     }
@@ -50,8 +57,7 @@ const PureOptionsBox = ({ isVisible, elementPos, setIsVisible }) => {
         ...styleToApply,
       }}
     >
-      <div></div>
-      <div></div>
+      <div>{childComponent}</div>
     </div>
   ) : (
     <></>

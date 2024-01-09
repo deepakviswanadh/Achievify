@@ -20,6 +20,7 @@ import PureCarousel from "purecomponents/PureCarousel";
 import PureNavBar from "purecomponents/PureNavBar";
 import UploadImage from "components/UploadImage";
 import Scanner from "components/Scanner";
+import PureCalender from "purecomponents/PureCalender";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -73,7 +74,6 @@ const Landing = () => {
         >
           <button
             id="click-me"
-            style={{ transform: "translate(10px,400px)" }}
             onClick={(event) => {
               setIsVisible((prev) => !prev);
               event.stopPropagation();
@@ -81,32 +81,11 @@ const Landing = () => {
           >
             Click me
           </button>
-          <PureOptionsBox
+          <PureCalender
             isVisible={isVisible}
             elementPos={"#click-me"}
             setIsVisible={setIsVisible}
           />
-          <PureAccordion
-            titleTxt={"test 123"}
-            bodyTxt={
-              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-            }
-          />
-          <PureAccordion
-            titleTxt={"test 123"}
-            bodyTxt={
-              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-            }
-          />
-          <PureAccordion
-            titleTxt={"test 123"}
-            bodyTxt={
-              "Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10Lorem10"
-            }
-          />
-          <PureRating count={5} />
-
-          <PureCarousel />
         </div>
       </div>
       {/* <UploadImage /> */}
