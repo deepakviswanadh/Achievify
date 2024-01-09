@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import PureOptionsBox from "purecomponents/PureOptionsBox";
+import InnerGridComponent from "./InnerGridComponent";
 
 const GenericCalenderBox = forwardRef((props, ref) => {
   const {
@@ -7,13 +8,23 @@ const GenericCalenderBox = forwardRef((props, ref) => {
     elementPos,
     controlOpenClose,
   } = props;
+  const stylesForModal = {
+    height: "10rem",
+    width: "15rem",
+  };
+
   return (
     <div>
       <PureOptionsBox
         isVisible={open}
         elementPos={elementPos}
         setIsVisible={controlOpenClose}
-        childComponent={<div>Render Month Grid</div>}
+        childComponent={
+          <>
+            <InnerGridComponent stylesForModal={stylesForModal} />
+          </>
+        }
+        stylesForModal={stylesForModal}
       />
     </div>
   );

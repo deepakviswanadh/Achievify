@@ -6,6 +6,7 @@ const PureOptionsBox = ({
   elementPos,
   setIsVisible,
   childComponent,
+  stylesForModal,
 }) => {
   const [styleToApply, setStyleToApply] = useState({});
 
@@ -27,20 +28,17 @@ const PureOptionsBox = ({
     const clickHandler = (event) => {
       doS(event, root);
     };
-    console.log("elementPos", root, isVisible);
     if (root && isVisible) {
       window.addEventListener("click", clickHandler, {
         capture: true,
       });
       const parent = document.querySelector(`${elementPos}`);
-      console.log("parent", parent);
       const { x, y, height } = parent?.getBoundingClientRect();
       let style = {
-        position: "absolute",
-        top: `${y + height + 20 || 0}px`,
-        left: `${x || 0}px`,
-        height: "15rem",
-        width: "35rem",
+        position: "fixed",
+        top: `${y + height + 10 || 0}px`,
+        left: `${x + 10 || 0}px`,
+        ...stylesForModal,
         backgroundColor: "rgba(247, 235, 235, 0.902)",
         opacity: "inherit",
         border: "1px solid black",

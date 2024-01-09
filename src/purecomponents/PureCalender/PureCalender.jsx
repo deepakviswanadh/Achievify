@@ -4,6 +4,10 @@ import PureCalenderHeader from "./PureCalenderHeader";
 import PureCalenderBody from "./PureCalenderBody";
 
 const PureCalender = ({ isVisible, elementPos, setIsVisible }) => {
+  const stylesForCalenderBody = {
+    height: "15rem",
+    width: "35rem",
+  };
   const constructCalender = () => {
     return (
       <div
@@ -25,6 +29,7 @@ const PureCalender = ({ isVisible, elementPos, setIsVisible }) => {
         elementPos={elementPos}
         setIsVisible={setIsVisible}
         childComponent={constructCalender()}
+        stylesForModal={stylesForCalenderBody}
       />
     </div>
   );
