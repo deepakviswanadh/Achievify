@@ -23,17 +23,17 @@ const PureOptionsBox = ({
   );
 
   useLayoutEffect(() => {
-    const root = document.querySelector("#options-root");
-
+    const root = document.querySelector(`#options-root-${elementPos.slice(1)}`);
     const clickHandler = (event) => {
       doS(event, root);
     };
+    console.log("elementPos", root, isVisible);
     if (root && isVisible) {
       window.addEventListener("click", clickHandler, {
         capture: true,
       });
-      console.log("elementPos", elementPos);
       const parent = document.querySelector(`${elementPos}`);
+      console.log("parent", parent);
       const { x, y, height } = parent?.getBoundingClientRect();
       let style = {
         position: "absolute",
@@ -41,6 +41,12 @@ const PureOptionsBox = ({
         left: `${x || 0}px`,
         height: "15rem",
         width: "35rem",
+        backgroundColor: "rgba(247, 235, 235, 0.902)",
+        opacity: "inherit",
+        border: "1px solid black",
+        borderRadius: "6px",
+        overflowY: "auto",
+        overflowX: "hidden",
       };
       setStyleToApply(style);
     }
@@ -53,7 +59,7 @@ const PureOptionsBox = ({
 
   return isVisible ? (
     <div
-      id="options-root"
+      id={`options-root-${elementPos.slice(1)}`}
       style={{
         ...styleToApply,
       }}
