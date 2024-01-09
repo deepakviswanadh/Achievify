@@ -1,49 +1,18 @@
-import React, { useState, useRef } from "react";
-import GenericCalenderBox from "components/GenericCalenderBox";
+import React, { useRef } from "react";
+import CommonMonthYearComponent from "../CommonMonthYearComponent";
 
-const PureCalenderHeaderYear = () => {
-  const [toggleBox, setToggleBox] = useState({
-    open: false,
-    anchorRef: null,
-    clickEvent: null,
-  });
-  const triggerOpenMonthBox = (event) => {
-    setToggleBox({
-      ...toggleBox,
-      open: !toggleBox.open,
-      anchorRef: yearRefName.current,
-      clickEvent: event,
-    });
-  };
-  const controlOpenClose = (state) => {
-    setToggleBox({
-      open: state,
-      ...(state === false && { anchorRef: null, clickEvent: null }),
-    });
-  };
-  const yearRefName = useRef();
+const PureCalenderHeaderMonth = ({ currentDate }) => {
+  const yearRef = useRef();
+  const extractYear = currentDate[2];
   return (
     <>
-      <div
-        ref={yearRefName}
-        onClick={(event) => {
-          triggerOpenMonthBox(event);
-        }}
-        id="calender-year"
-      >
-        PureCalenderHeaderYear
-      </div>
-      {toggleBox?.open && (
-        <GenericCalenderBox
-          ref={toggleBox?.anchorRef}
-          toggleBox={toggleBox}
-          elementPos={"#calender-year"}
-          controlOpenClose={controlOpenClose}
-          needArrows={true}
-        />
-      )}
+      <CommonMonthYearComponent
+        type={"year"}
+        ref={yearRef}
+        displayValue={extractYear}
+      />
     </>
   );
 };
 
-export default PureCalenderHeaderYear;
+export default PureCalenderHeaderMonth;

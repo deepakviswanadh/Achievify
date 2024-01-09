@@ -50,6 +50,8 @@ const Landing = () => {
   const closeModal = () => {
     dispatch({ type: ADD_NEW_CATEGORY_BUTTON });
   };
+
+  const currentDate = new Date().toLocaleDateString().split("/");
   return (
     <>
       <div
@@ -85,6 +87,7 @@ const Landing = () => {
             isVisible={isVisible}
             elementPos={"#click-me"}
             setIsVisible={setIsVisible}
+            currentDate={currentDate}
           />
         </div>
       </div>

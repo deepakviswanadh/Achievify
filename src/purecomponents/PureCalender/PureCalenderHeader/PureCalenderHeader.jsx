@@ -2,7 +2,7 @@ import React from "react";
 import PureCalenderHeaderMonth from "./PureCalenderHeaderMonth";
 import PureCalenderHeaderYear from "./PureCalenderHeaderYear";
 
-const PureCalenderHeader = () => {
+const PureCalenderHeader = ({ currentDate }) => {
   return (
     <div
       style={{
@@ -13,8 +13,8 @@ const PureCalenderHeader = () => {
         justifyContent: "center",
       }}
     >
-      <PureCalenderHeaderMonth />
-      <PureCalenderHeaderYear />
+      <PureCalenderHeaderMonth currentDate={currentDate} />
+      <PureCalenderHeaderYear currentDate={currentDate} />
     </div>
   );
 };

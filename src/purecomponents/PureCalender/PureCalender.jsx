@@ -3,7 +3,7 @@ import PureOptionsBox from "purecomponents/PureOptionsBox";
 import PureCalenderHeader from "./PureCalenderHeader";
 import PureCalenderBody from "./PureCalenderBody";
 
-const PureCalender = ({ isVisible, elementPos, setIsVisible }) => {
+const PureCalender = ({ isVisible, elementPos, setIsVisible, currentDate }) => {
   const stylesForCalenderBody = {
     height: "15rem",
     width: "35rem",
@@ -17,8 +17,8 @@ const PureCalender = ({ isVisible, elementPos, setIsVisible }) => {
           gridTemplateRows: "6vh 27vh",
         }}
       >
-        <PureCalenderHeader />
-        <PureCalenderBody />
+        <PureCalenderHeader currentDate={currentDate} />
+        <PureCalenderBody currentDate={currentDate} />
       </div>
     );
   };

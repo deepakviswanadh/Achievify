@@ -12,8 +12,8 @@ const InnerGridComponent = ({ stylesForModal, needArrows }) => {
             justifyContent: "space-around",
           }}
         >
-          <span>&lt;</span>
-          <span>&gt;</span>
+          <button>&lt;</button>
+          <button>&gt;</button>
         </div>
       )}
       <div
