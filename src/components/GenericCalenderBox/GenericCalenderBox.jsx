@@ -7,12 +7,17 @@ const GenericCalenderBox = forwardRef((props, ref) => {
     toggleBox: { open, clickEvent },
     elementPos,
     controlOpenClose,
+    needArrows,
   } = props;
   const stylesForModal = {
-    height: "10rem",
+    height: "12rem",
     width: "15rem",
   };
 
+  const stylesForCrossGrid = {
+    height: needArrows ? "10rem" : "12rem",
+    width: "15rem",
+  };
   return (
     <div>
       <PureOptionsBox
@@ -21,7 +26,10 @@ const GenericCalenderBox = forwardRef((props, ref) => {
         setIsVisible={controlOpenClose}
         childComponent={
           <>
-            <InnerGridComponent stylesForModal={stylesForModal} />
+            <InnerGridComponent
+              stylesForModal={stylesForCrossGrid}
+              needArrows={needArrows}
+            />
           </>
         }
         stylesForModal={stylesForModal}

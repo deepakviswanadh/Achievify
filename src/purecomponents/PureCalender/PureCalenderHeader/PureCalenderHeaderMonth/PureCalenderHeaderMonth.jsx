@@ -39,6 +39,7 @@ const PureCalenderHeaderMonth = () => {
           toggleBox={toggleBox}
           elementPos={"#calender-month"}
           controlOpenClose={controlOpenClose}
+          needArrows={false}
         />
       )}
     </>
