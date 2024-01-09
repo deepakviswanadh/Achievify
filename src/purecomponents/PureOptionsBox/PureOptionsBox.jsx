@@ -13,10 +13,10 @@ const PureOptionsBox = ({
     (event, root) => {
       let isClickInside = root.contains(event.target);
       if (isClickInside) {
-        console.log("inside click");
+        // console.log("inside click");
       } else {
         setIsVisible(false);
-        console.log("outside click");
+        //console.log("outside click");
       }
     },
     [setIsVisible]
@@ -32,6 +32,7 @@ const PureOptionsBox = ({
       window.addEventListener("click", clickHandler, {
         capture: true,
       });
+      console.log("elementPos", elementPos);
       const parent = document.querySelector(`${elementPos}`);
       const { x, y, height } = parent?.getBoundingClientRect();
       let style = {

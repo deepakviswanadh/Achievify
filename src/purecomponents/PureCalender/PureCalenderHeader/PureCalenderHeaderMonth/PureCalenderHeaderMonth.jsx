@@ -15,6 +15,12 @@ const PureCalenderHeaderMonth = () => {
       clickEvent: event,
     });
   };
+  const controlOpenClose = (state) => {
+    setToggleBox({
+      open: state,
+      ...(state === false && { anchorRef: null, clickEvent: null }),
+    });
+  };
   const monthNameRef = useRef();
   return (
     <>
@@ -23,11 +29,17 @@ const PureCalenderHeaderMonth = () => {
         onClick={(event) => {
           triggerOpenMonthBox(event);
         }}
+        id="calender-month"
       >
         PureCalenderHeaderMonth
       </div>
       {toggleBox?.open && (
-        <GenericCalenderBox ref={toggleBox?.anchorRef} toggleBox={toggleBox} />
+        <GenericCalenderBox
+          ref={toggleBox?.anchorRef}
+          toggleBox={toggleBox}
+          elementPos={"#calender-month"}
+          controlOpenClose={controlOpenClose}
+        />
       )}
     </>
   );

@@ -13,9 +13,9 @@ const QrCodeScanner = () => {
     }
 
     try {
-      console.log("Scanning image...");
+      //console.log("Scanning image...");
       const result = await QrScanner.scanImage(file);
-      console.log("QR Code found:", result);
+      //console.log("QR Code found:", result);
       setQrCodeText(result);
       setError("");
     } catch (err) {

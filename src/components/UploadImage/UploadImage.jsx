@@ -20,7 +20,7 @@ const UploadImage = () => {
   const recognizeTextFromImage = async (image) => {
     const worker = await Tesseract.createWorker("eng");
     const result = await worker.recognize(image);
-    console.log({ result });
+    //console.log({ result });
     worker.terminate();
     return result;
   };
