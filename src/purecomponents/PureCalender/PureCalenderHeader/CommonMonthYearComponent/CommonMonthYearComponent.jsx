@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from "react";
 import GenericCalenderBox from "components/GenericCalenderBox";
+import { MONTHS_ARRAY } from "constants/constants";
 
 const CommonMonthYearComponent = forwardRef((props, ref) => {
   const { type, displayValue } = { ...props };
@@ -22,6 +23,10 @@ const CommonMonthYearComponent = forwardRef((props, ref) => {
       ...(state === false && { anchorRef: null, clickEvent: null }),
     });
   };
+
+  const renderText =
+    type == "month" ? MONTHS_ARRAY[displayValue - 1] : displayValue;
+
   return (
     <>
       <div
@@ -31,7 +36,7 @@ const CommonMonthYearComponent = forwardRef((props, ref) => {
         }}
         id={`calender-${type}`}
       >
-        {displayValue}
+        {renderText}
       </div>
       {toggleBox?.open && (
         <GenericCalenderBox
@@ -40,6 +45,7 @@ const CommonMonthYearComponent = forwardRef((props, ref) => {
           elementPos={`#calender-${type}`}
           controlOpenClose={controlOpenClose}
           needArrows={type == "year"}
+          renderText={renderText}
         />
       )}
     </>

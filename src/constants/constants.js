@@ -86,3 +86,7 @@ export const TXTS = {
 export const HELPER_TXTS = {
   ENTER_A_VALID_CATEGORY_NAME: "Enter a valid category name!",
 };
+
+export const MONTHS_ARRAY = [...Array(12).keys()].map((i, key) =>
+  new Date(0, i).toLocaleString("en-US", { month: "long" })
+);

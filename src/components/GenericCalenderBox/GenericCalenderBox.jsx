@@ -8,15 +8,16 @@ const GenericCalenderBox = forwardRef((props, ref) => {
     elementPos,
     controlOpenClose,
     needArrows,
+    renderText,
   } = props;
   const stylesForModal = {
     height: "12rem",
-    width: "15rem",
+    width: "17rem",
   };
 
   const stylesForCrossGrid = {
     height: needArrows ? "10rem" : "12rem",
-    width: "15rem",
+    width: "17rem",
   };
   return (
     <div>
@@ -29,6 +30,7 @@ const GenericCalenderBox = forwardRef((props, ref) => {
             <InnerGridComponent
               stylesForModal={stylesForCrossGrid}
               needArrows={needArrows}
+              renderText={renderText}
             />
           </>
         }

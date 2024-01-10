@@ -1,6 +1,18 @@
 import React from "react";
+import { MONTHS_ARRAY } from "constants/constants";
 
-const InnerGridComponent = ({ stylesForModal, needArrows }) => {
+const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
+  const calculateYears = (year) => {
+    function getNumbersInRange(min, max) {
+      const numbers = [];
+      for (let year = min; year <= max; year++) {
+        numbers.push(year);
+      }
+      return numbers;
+    }
+    return [...getNumbersInRange(year - 6, year + 5)];
+  };
+  const LOOPER = needArrows ? calculateYears(+renderText) : MONTHS_ARRAY;
   return (
     <>
       {needArrows && (
@@ -19,29 +31,27 @@ const InnerGridComponent = ({ stylesForModal, needArrows }) => {
       <div
         style={{
           ...stylesForModal,
-          backgroundColor: "lightBlue",
           display: "grid",
           gridTemplateRows: "1fr 1fr 1fr",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          gridTemplateColumns: "1.3fr 1.3fr 1.3fr 1.3fr",
         }}
       >
-        {[...Array(12).keys()]
-          .map((i) => i + 1)
-          .map((each) => {
-            return (
-              <span
-                key={each}
-                style={{
-                  border: "1px solid black",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {each}
-              </span>
-            );
-          })}
+        {[...LOOPER].map((each) => {
+          return (
+            <span
+              key={each}
+              style={{
+                border: "1px solid black",
+                backgroundColor: renderText == each ? "green" : "lightBlue",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {each}
+            </span>
+          );
+        })}
       </div>
     </>
   );
