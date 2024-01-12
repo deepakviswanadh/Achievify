@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { MONTHS_ARRAY } from "constants/constants";
+import { dispatchYearChange } from "store/actionCreators/calenderActionCreators";
 
 const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
   const [updateLooper, setUpdateLooper] = useState([]);
+  const dispatch = useDispatch();
   const [currentYear, setCurrentYear] = useState();
   const calculateYears = (year) => {
     function getNumbersInRange(min, max) {
@@ -23,6 +26,10 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
       ...(needArrows ? calculateYears(currentYear) : MONTHS_ARRAY),
     ]);
   }, [currentYear]);
+
+  const handleYearClick = (event, year) => {
+    dispatch(dispatchYearChange(year));
+  };
   return (
     <>
       {needArrows && (
@@ -62,6 +69,9 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
           return (
             <span
               key={each}
+              onClick={(event) => {
+                handleYearClick(event, each);
+              }}
               style={{
                 border: "1px solid black",
                 backgroundColor: renderText == each ? "green" : "lightBlue",
