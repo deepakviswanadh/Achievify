@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MONTHS_ARRAY } from "constants/constants";
 
 const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
+  const [updateLooper, setUpdateLooper] = useState([]);
+  const [currentYear, setCurrentYear] = useState();
   const calculateYears = (year) => {
     function getNumbersInRange(min, max) {
       const numbers = [];
@@ -12,7 +14,14 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
     }
     return [...getNumbersInRange(year - 6, year + 5)];
   };
-  const LOOPER = needArrows ? calculateYears(+renderText) : MONTHS_ARRAY;
+  useEffect(() => {
+    setCurrentYear(+renderText);
+    setUpdateLooper(needArrows ? calculateYears(+renderText) : MONTHS_ARRAY);
+  }, [renderText]);
+
+  useEffect(() => {
+    setUpdateLooper([...calculateYears(currentYear)]);
+  }, [currentYear]);
   return (
     <>
       {needArrows && (
@@ -24,8 +33,20 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
             justifyContent: "space-around",
           }}
         >
-          <button>&lt;</button>
-          <button>&gt;</button>
+          <button
+            onClick={() => {
+              setCurrentYear(currentYear - 12);
+            }}
+          >
+            &lt;
+          </button>
+          <button
+            onClick={() => {
+              setCurrentYear(currentYear + 12);
+            }}
+          >
+            &gt;
+          </button>
         </div>
       )}
       <div
@@ -36,7 +57,7 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
           gridTemplateColumns: "1.3fr 1.3fr 1.3fr 1.3fr",
         }}
       >
-        {[...LOOPER].map((each) => {
+        {[...updateLooper].map((each) => {
           return (
             <span
               key={each}
