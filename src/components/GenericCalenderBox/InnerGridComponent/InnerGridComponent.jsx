@@ -16,11 +16,12 @@ const InnerGridComponent = ({ stylesForModal, needArrows, renderText }) => {
   };
   useEffect(() => {
     setCurrentYear(+renderText);
-    setUpdateLooper(needArrows ? calculateYears(+renderText) : MONTHS_ARRAY);
   }, [renderText]);
 
   useEffect(() => {
-    setUpdateLooper([...calculateYears(currentYear)]);
+    setUpdateLooper([
+      ...(needArrows ? calculateYears(currentYear) : MONTHS_ARRAY),
+    ]);
   }, [currentYear]);
   return (
     <>
