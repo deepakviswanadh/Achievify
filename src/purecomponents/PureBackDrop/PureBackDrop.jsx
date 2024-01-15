@@ -2,11 +2,9 @@ import React from "react";
 
 const PureBackDrop = ({ context, handleClose }) => {
   return (
-    <div
+    <span
       style={{
         position: "absolute",
-        top: "78px",
-        left: "9px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -14,6 +12,8 @@ const PureBackDrop = ({ context, handleClose }) => {
         width: "99vw",
         backgroundColor: "lightgreen",
         opacity: "0.9",
+        zIndex: 100,
+        top: "80px",
       }}
     >
       <div id="backdrop-context">{context}</div>
@@ -25,7 +25,7 @@ const PureBackDrop = ({ context, handleClose }) => {
       >
         X
       </div>
-    </div>
+    </span>
   );
 };
 

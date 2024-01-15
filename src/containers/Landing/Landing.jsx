@@ -57,6 +57,7 @@ const Landing = () => {
     <>
       <div
         style={{
+          zIndex: -1,
           display: "grid",
           gridTemplateRows: "1fr 9fr",
           height: "97vh",

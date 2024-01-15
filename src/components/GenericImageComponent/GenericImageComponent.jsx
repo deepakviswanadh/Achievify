@@ -1,5 +1,4 @@
 import React from "react";
-import PureBackDrop from "purecomponents/PureBackDrop";
 
 const GenericImageComponent = ({
   triggerExpanded,
@@ -7,13 +6,7 @@ const GenericImageComponent = ({
   each,
   index,
 }) => {
-  if (currentExpanded == index)
-    return (
-      <div>
-        <PureBackDrop context={each} handleClose={triggerExpanded} />
-      </div>
-    );
-  return <div>GenericImageComponent</div>;
+  return currentExpanded != each ? "GenericImageComponent" : "";
 };
 
 export default GenericImageComponent;
