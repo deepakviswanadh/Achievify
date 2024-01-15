@@ -21,6 +21,7 @@ import PureNavBar from "purecomponents/PureNavBar";
 import UploadImage from "components/UploadImage";
 import Scanner from "components/Scanner";
 import PureCalender from "purecomponents/PureCalender";
+import PureImageGallery from "purecomponents/PureImageGallery";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -57,17 +58,16 @@ const Landing = () => {
       <div
         style={{
           display: "grid",
-          gridAutoFlow: "row",
-          gridAutoRows: "minmax(64px,auto)",
+          gridTemplateRows: "1fr 9fr",
           height: "97vh",
           overflow: "hidden",
         }}
       >
-        <div style={{ gridRow: "1/2", overflow: "hidden" }}>
+        <div style={{ overflow: "hidden" }}>
           <PureNavBar />
         </div>
 
-        <div
+        {/* <div
           style={{
             height: "calc(100vh - 70px)",
             overflowY: "auto",
@@ -89,6 +89,9 @@ const Landing = () => {
             setIsVisible={setIsVisible}
             currentDate={currentDate}
           />
+        </div> */}
+        <div style={{}}>
+          <PureImageGallery />
         </div>
       </div>
       {/* <UploadImage /> */}
