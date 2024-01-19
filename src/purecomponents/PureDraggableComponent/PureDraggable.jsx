@@ -2,11 +2,11 @@ import React, { useState, useRef, useCallback } from "react";
 
 const PureDraggable = () => {
   const [startDrag, setDragStart] = useState(false);
+  const [startResize, setStartResize] = useState(false);
   const [applyStyle, setApplyStyle] = useState({});
   const divRef = useRef(null);
 
   const handleDragShift = function (event) {
-    setDragStart(false);
     const { height, width } = divRef.current.getBoundingClientRect();
     setApplyStyle({
       ...applyStyle,
@@ -16,26 +16,41 @@ const PureDraggable = () => {
     });
   };
 
+  const handleResize = function (event) {
+    const { x, width } = divRef.current.getBoundingClientRect();
+    const newWidth = width + event.clientX - x;
+    setApplyStyle({
+      ...applyStyle,
+      width: newWidth,
+    });
+  };
+
   const debounce = useCallback(
     (callback, timer) => {
       let delay;
       return function (...args) {
         clearInterval(delay);
         delay = setTimeout(() => {
-          setDragStart(false);
-          if (startDrag) {
-            callback.apply(this, args);
-          }
+          startDrag && setDragStart(false);
+          startResize && setStartResize(false);
+          callback.apply(this, args);
         }, timer);
       };
     },
-    [startDrag]
+    [startDrag, startResize]
   );
 
-  const debouncedDrag = debounce(handleDragShift, 40);
+  const debouncedDrag = debounce(
+    startDrag ? handleDragShift : handleResize,
+    40
+  );
 
   const initiateDragStart = (event) => {
     setDragStart(true);
+  };
+
+  const initiateResize = (event) => {
+    setStartResize(true);
   };
 
   return (
@@ -48,7 +63,7 @@ const PureDraggable = () => {
         height: "40vh",
       }}
       onMouseUp={(event) => {
-        startDrag && debouncedDrag(event);
+        (startDrag || startResize) && debouncedDrag(event);
       }}
     >
       <span
@@ -58,6 +73,7 @@ const PureDraggable = () => {
         }}
         style={{
           ...applyStyle,
+          width: applyStyle.width + 10,
         }}
       >
         <span
@@ -65,10 +81,13 @@ const PureDraggable = () => {
           onMouseDown={(event) => {
             initiateDragStart(event);
           }}
+          id="drag-me"
           style={{
             cursor: "grab",
             border: "1px solid black",
             userSelect: "none",
+            display: "inline-block",
+            width: applyStyle?.width || "auto",
           }}
         >
           Drag me
@@ -79,6 +98,11 @@ const PureDraggable = () => {
             display: "inline-flex",
             width: "3px",
             height: "10px",
+          }}
+          onMouseDown={(event) => {
+            //trigger resize start
+            event.stopPropagation();
+            initiateResize(event);
           }}
         />
       </span>
