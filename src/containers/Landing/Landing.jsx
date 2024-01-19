@@ -22,6 +22,7 @@ import UploadImage from "components/UploadImage";
 import Scanner from "components/Scanner";
 import PureCalender from "purecomponents/PureCalender";
 import PureImageGallery from "purecomponents/PureImageGallery";
+import PureDraggable from "purecomponents/PureDraggableComponent/";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const Landing = () => {
   const currentDate = new Date().toLocaleDateString().split("/");
   return (
     <>
+      <PureDraggable />
       <div
         style={{
           zIndex: -1,
@@ -91,9 +93,9 @@ const Landing = () => {
             currentDate={currentDate}
           />
         </div> */}
-        <div style={{}}>
+        {/* <div style={{}}>
           <PureImageGallery />
-        </div>
+        </div> */}
       </div>
       {/* <UploadImage /> */}
       {/* <Scanner /> */}

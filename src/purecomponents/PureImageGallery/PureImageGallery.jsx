@@ -4,7 +4,7 @@ import PureBackDrop from "purecomponents/PureBackDrop";
 
 const PureImageGallery = () => {
   const [trackExpanded, setTrackExpanded] = useState(-1);
-  const galleryObj = new Array(9)
+  const galleryObj = new Array(12)
     .fill(0)
     .map((each, index) => each + index + 1);
 
@@ -23,6 +23,8 @@ const PureImageGallery = () => {
           display: "grid",
           gridAutoRows: "minmax(11rem, auto)",
           gridTemplateColumns: "1fr 1fr 1fr",
+          overflowY: "auto",
+          height: "70vh",
         }}
       >
         {[...galleryObj].map((each, index) => {
@@ -31,7 +33,6 @@ const PureImageGallery = () => {
               key={index}
               style={{
                 border: "1px solid black",
-                cursor: "pointer",
                 ...(trackExpanded && {
                   display: "flex",
                   justifyContent: "center",

@@ -6,7 +6,11 @@ const GenericImageComponent = ({
   each,
   index,
 }) => {
-  return currentExpanded != each ? "GenericImageComponent" : "";
+  return currentExpanded != each ? (
+    <div style={{ cursor: "pointer" }}>GenericImageComponent</div>
+  ) : (
+    <></>
+  );
 };
 
 export default GenericImageComponent;
