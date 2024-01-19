@@ -1,56 +1,49 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 
 const PureDraggable = () => {
   const [startDrag, setDragStart] = useState(false);
+  const [applyStyle, setApplyStyle] = useState({});
   const divRef = useRef(null);
   const logMe = function (event) {
-    console.log("log me", event?.clientX, event?.clientY);
     setDragStart(false);
   };
 
-  useEffect(() => {
-    const elemt = divRef?.current;
-    if (elemt && startDrag) {
-      elemt.addEventListener(
-        "mousemove",
-        (event) => {
-          throttledLogMe(event);
-        },
-        { capture: true }
-      );
-    }
-    return () => {
-      elemt.removeEventListener(
-        "mousemove",
-        (event) => {
-          throttledLogMe(event);
-        },
-        { capture: true }
-      );
-    };
-  }, [startDrag]);
+  const debounce = useCallback(
+    (callback, timer) => {
+      let delay;
+      return function (...args) {
+        clearInterval(delay);
+        delay = setTimeout(() => {
+          setDragStart(false);
+          if (startDrag) {
+            const { clientX: newX, clientY: newY } = args[0];
+            callback.apply(this, args);
+            handleDragShift(newX, newY);
+          }
+        }, timer);
+      };
+    },
+    [startDrag]
+  );
 
-  const throttle = function (callback, timer) {
-    let delay;
-    return function (...args) {
-      clearInterval(delay);
-      delay = setTimeout(() => {
-        callback.apply(this, args);
-        setDragStart(false);
-      }, timer);
-    };
-  };
-
-  const throttledLogMe = throttle(logMe, 300);
+  const throttledLogMe = debounce(logMe, 300);
 
   const handleDragEnd = (event) => {
     setDragStart(true);
-    console.log("call now");
+  };
+
+  const handleDragShift = (newX, newY) => {
+    const { height, width } = divRef.current.getBoundingClientRect();
+    setApplyStyle({
+      ...applyStyle,
+      position: "absolute",
+      top: newY - height / 2,
+      left: newX - width / 2,
+    });
   };
 
   return (
     <div
-      ref={divRef}
       style={{
         display: "flex",
         justifyContent: "center",
@@ -58,8 +51,20 @@ const PureDraggable = () => {
         border: "1px solid black",
         height: "40vh",
       }}
+      onMouseMove={(event) => {
+        startDrag && throttledLogMe(event);
+      }}
     >
-      <div onMouseDown={handleDragEnd} style={{ cursor: "pointer" }}>
+      <div
+        ref={divRef}
+        onMouseDown={handleDragEnd}
+        style={{
+          cursor: "pointer",
+          border: "1px solid black",
+          userSelect: "none",
+          ...applyStyle,
+        }}
+      >
         Drag me
       </div>
     </div>
