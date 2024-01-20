@@ -17,11 +17,19 @@ const PureDraggable = () => {
   };
 
   const handleResize = function (event) {
-    const { x, width } = divRef.current.getBoundingClientRect();
-    const newWidth = width + event.clientX - x;
+    const { left, width } = divRef.current.getBoundingClientRect();
+    const mousePosition = event.clientX;
+    let newWidth = width;
+    //increasing case
+    if (mousePosition > left) {
+      newWidth = mousePosition - left;
+      //decreasing case
+    } else if (mousePosition < left) {
+      newWidth = width - (left - mousePosition);
+    }
     setApplyStyle({
       ...applyStyle,
-      width: newWidth,
+      width: Math.max(newWidth, 0),
     });
   };
 
@@ -73,7 +81,6 @@ const PureDraggable = () => {
         }}
         style={{
           ...applyStyle,
-          width: applyStyle.width + 10,
         }}
       >
         <span
@@ -87,7 +94,7 @@ const PureDraggable = () => {
             border: "1px solid black",
             userSelect: "none",
             display: "inline-block",
-            width: applyStyle?.width || "auto",
+            width: applyStyle?.width - 10 || "auto",
           }}
         >
           Drag me
