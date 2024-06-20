@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 
-const PureDraggable = () => {
+const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
   const [startDrag, setDragStart] = useState(false);
   const [startResize, setStartResize] = useState(false);
   const [applyStyle, setApplyStyle] = useState({});
@@ -39,6 +39,7 @@ const PureDraggable = () => {
       return function (...args) {
         clearInterval(delay);
         delay = setTimeout(() => {
+          console.log("draging");
           startDrag && setDragStart(false);
           startResize && setStartResize(false);
           callback.apply(this, args);
@@ -70,30 +71,38 @@ const PureDraggable = () => {
         border: "1px solid black",
         height: "40vh",
       }}
+      //event delegation
+      //one mouse up handler on parent for both resize and drag
+      //show the effect of either dragging or resizing after the mouse click
+      //is released (mouseup)
       onMouseUp={(event) => {
+        console.log("tiggered mouseup on parent");
         (startDrag || startResize) && debouncedDrag(event);
       }}
     >
+      {/* this is the parent holding actual container and its resize handler
+    dragging this would allow to drag both the container and the handler */}
       <span
         ref={divRef}
+        //start tracking the dragging as soon as mouse is clicked
+        //onmousedown
         onMouseDown={(event) => {
           initiateDragStart(event);
         }}
         style={{
           ...applyStyle,
+          backgroundColor: "green",
         }}
       >
         <span
           ref={divRef}
-          onMouseDown={(event) => {
-            initiateDragStart(event);
-          }}
           id="drag-me"
           style={{
             cursor: "grab",
             border: "1px solid black",
             userSelect: "none",
             display: "inline-block",
+            backgroundColor: "yellow",
             width: applyStyle?.width - 10 || "auto",
           }}
         >
@@ -105,11 +114,13 @@ const PureDraggable = () => {
             display: "inline-flex",
             width: "3px",
             height: "10px",
+            backgroundColor: "red",
           }}
+          //start tracking the resizing as soon as mouse is clicked
+          //onmousedown
           onMouseDown={(event) => {
-            //trigger resize start
             event.stopPropagation();
-            initiateResize(event);
+            toggleResize && initiateResize(event);
           }}
         />
       </span>
