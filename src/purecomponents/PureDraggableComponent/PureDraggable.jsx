@@ -33,23 +33,39 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
     });
   };
 
-  const debounce = useCallback(
-    (callback, timer) => {
-      let delay;
+  // const debounce = useCallback(
+  //   (callback, timer) => {
+  //     let delay;
+  //     return function (...args) {
+  //       clearInterval(delay);
+  //       delay = setTimeout(() => {
+  //         console.log("draging");
+  //         startDrag && setDragStart(false);
+  //         startResize && setStartResize(false);
+  //         callback.apply(this, args);
+  //       }, timer);
+  //     };
+  //   },
+  //   [startDrag, startResize]
+  // );
+
+  const throttle = useCallback(
+    (callback, interval) => {
+      let isRunning = false;
       return function (...args) {
-        clearInterval(delay);
-        delay = setTimeout(() => {
-          console.log("draging");
-          startDrag && setDragStart(false);
-          startResize && setStartResize(false);
-          callback.apply(this, args);
-        }, timer);
+        if (!isRunning) isRunning = true;
+        startDrag && setDragStart(false);
+        startResize && setStartResize(false);
+        callback.apply(this, args);
+        setTimeout(() => {
+          isRunning = false;
+        }, interval);
       };
     },
     [startDrag, startResize]
   );
 
-  const debouncedDrag = debounce(
+  const debouncedDrag = throttle(
     startDrag ? handleDragShift : handleResize,
     40
   );
@@ -76,7 +92,6 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
       //show the effect of either dragging or resizing after the mouse click
       //is released (mouseup)
       onMouseUp={(event) => {
-        console.log("tiggered mouseup on parent");
         (startDrag || startResize) && debouncedDrag(event);
       }}
     >
@@ -87,7 +102,7 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
         //start tracking the dragging as soon as mouse is clicked
         //onmousedown
         onMouseDown={(event) => {
-          initiateDragStart(event);
+          !startResize && initiateDragStart(event);
         }}
         style={{
           ...applyStyle,
@@ -98,7 +113,7 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
           ref={divRef}
           id="drag-me"
           style={{
-            cursor: "grab",
+            cursor: !startResize ? "grab" : "col-resize",
             border: "1px solid black",
             userSelect: "none",
             display: "inline-block",
@@ -120,7 +135,7 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
           //onmousedown
           onMouseDown={(event) => {
             event.stopPropagation();
-            toggleResize && initiateResize(event);
+            toggleResize && !startDrag && initiateResize(event);
           }}
         />
       </span>
