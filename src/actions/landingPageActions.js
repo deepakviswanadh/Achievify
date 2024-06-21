@@ -7,31 +7,31 @@ import hotelImage4 from "assets/tholaal-mohamed-8sKTHeGgrUM-unsplash.jpg";
 import hotelImage5 from "assets/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg";
 
 export function* callImages() {
-  yield put({
-    type: MOCK_STORE_IMGS,
-    payload: {
-      imgList: [
-        {
-          id: 0,
-          ref: hotelImage1,
-        },
-        {
-          id: 1,
-          ref: hotelImage2,
-        },
-        {
-          id: 2,
-          ref: hotelImage3,
-        },
-        {
-          id: 3,
-          ref: hotelImage4,
-        },
-        {
-          id: 4,
-          ref: hotelImage5,
-        },
-      ],
-    },
-  });
+  // yield put({
+  //   type: MOCK_STORE_IMGS,
+  //   payload: {
+  //     imgList: [
+  //       {
+  //         id: 0,
+  //         ref: hotelImage1,
+  //       },
+  //       {
+  //         id: 1,
+  //         ref: hotelImage2,
+  //       },
+  //       {
+  //         id: 2,
+  //         ref: hotelImage3,
+  //       },
+  //       {
+  //         id: 3,
+  //         ref: hotelImage4,
+  //       },
+  //       {
+  //         id: 4,
+  //         ref: hotelImage5,
+  //       },
+  //     ],
+  //   },
+  // });
 }

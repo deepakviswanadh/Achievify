@@ -29,9 +29,9 @@ const Landing = () => {
 
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    dispatch({ type: MOCKUP_IMGS_FETCH });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({ type: MOCKUP_IMGS_FETCH });
+  // }, []);
 
   const modalType = useSelector((state) => {
     return state.appLevelReducer.modalType;
