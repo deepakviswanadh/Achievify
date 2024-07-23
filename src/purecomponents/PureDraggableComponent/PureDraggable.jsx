@@ -1,15 +1,30 @@
 import React, { useState, useRef } from "react";
+import PureResizeHandler from "./PureResizeHandler";
 
-const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
+const PureDraggable = ({
+  toggleResize = true,
+  toggleDrag = true,
+  handlerCount = 4,
+}) => {
   const [startDrag, setDragStart] = useState(false);
   const [startResize, setStartResize] = useState(false);
   const [applyStyle, setApplyStyle] = useState({});
+  const [direction, setDirection] = useState(null);
   const draggableRef = useRef(null);
   const parentRef = useRef(null);
-  const resizeRef = useRef(null);
+  const lRef = useRef(null);
+  const rRef = useRef(null);
+  const tRef = useRef(null);
+  const bRef = useRef(null);
+  const refs = {
+    lRef,
+    rRef,
+    tRef,
+    bRef,
+  };
 
-  const handleDragShift = function (event) {
-    const { height, width } = draggableRef.current.getBoundingClientRect();
+  const handleDragShift = (event) => {
+    const { height, width } = draggableRef?.current.getBoundingClientRect();
     setApplyStyle({
       ...applyStyle,
       position: "absolute",
@@ -18,20 +33,46 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
     });
   };
 
-  const handleResize = function (event) {
-    const { left, width } = draggableRef.current.getBoundingClientRect();
-    const mousePosition = event.clientX;
-    let newWidth = width;
-    //increasing case
-    if (mousePosition > left) {
-      newWidth = mousePosition - left;
-      //decreasing case
-    } else if (mousePosition < left) {
-      newWidth = width - (left - mousePosition);
-    }
+  const calculateResize = {
+    rRef: (mouseX, mouseY, left, top, height, width) => ({
+      newWidth: mouseX - left,
+      newLeft: left,
+    }),
+    lRef: (mouseX, mouseY, left, top, height, width) => ({
+      newWidth: width + (left - mouseX),
+      newLeft: mouseX,
+    }),
+    bRef: (mouseX, mouseY, left, top, height, width) => ({
+      newHeight: mouseY - top,
+      newTop: top,
+    }),
+    tRef: (mouseX, mouseY, left, top, height, width) => ({
+      newHeight: height + (top - mouseY),
+      newTop: mouseY,
+    }),
+  };
+
+  const handleResize = (event) => {
+    const { top, left, width, height } =
+      draggableRef?.current.getBoundingClientRect();
+    const mousePositionX = event.clientX;
+    const mousePositionY = event.clientY;
+
+    const { newWidth, newHeight, newLeft, newTop } = calculateResize[direction](
+      mousePositionX,
+      mousePositionY,
+      left,
+      top,
+      height,
+      width
+    );
+
     setApplyStyle({
       ...applyStyle,
       width: Math.max(newWidth, 0),
+      height: Math.max(newHeight, 0),
+      left: newLeft !== undefined ? newLeft : applyStyle.left,
+      top: newTop !== undefined ? newTop : applyStyle.top,
     });
   };
 
@@ -64,10 +105,13 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
           toggleDrag &&
           initiateDragStart(event);
 
-        resizeRef?.current == event.target &&
-          toggleResize &&
-          !startDrag &&
+        const curRef = Object.keys(refs).find(
+          (eachRef) => refs[eachRef].current == event.target
+        );
+        if (!!curRef && toggleResize && !startDrag) {
+          setDirection(curRef);
           initiateResize(event);
+        }
       }}
       //trigger resize/drag animation when mouse is clicked and moved (not released)
       onMouseMove={
@@ -83,39 +127,42 @@ const PureDraggable = ({ toggleResize = true, toggleDrag = true }) => {
         startResize && setStartResize(false);
       }}
     >
-      {/* this is the parent holding actual container and its resize handler
-    dragging this would allow to drag both the container and the handler */}
-      <span
+      <div
+        ref={draggableRef}
+        id="drag-resize-me"
         style={{
+          backgroundColor: "lightblue",
           ...applyStyle,
-          backgroundColor: "green",
+          cursor: !startResize ? "grab" : "col-resize",
+          border: "1px solid black",
+          userSelect: "none",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <span
-          ref={draggableRef}
-          id="drag-me"
+        <PureResizeHandler ref={lRef} color={"red"} />
+        <div
           style={{
-            cursor: !startResize ? "grab" : "col-resize",
-            border: "1px solid black",
-            userSelect: "none",
-            display: "inline-block",
-            backgroundColor: "yellow",
-            width: applyStyle?.width - 10 || "auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          Drag and Resize Me
-        </span>
-        <span
-          ref={resizeRef}
-          style={{
-            cursor: "col-resize",
-            display: "inline-flex",
-            width: "3px",
-            height: "10px",
-            backgroundColor: "red",
-          }}
-        />
-      </span>
+          <PureResizeHandler ref={tRef} color={"black"} />
+          <div
+            style={{
+              display: "inline-block",
+              backgroundColor: "yellow",
+              width: applyStyle?.width - 50,
+            }}
+          >
+            Drag and Resize Me
+          </div>
+          <PureResizeHandler ref={bRef} color={"green"} />
+        </div>
+        <PureResizeHandler ref={rRef} color={"brown"} />
+      </div>
     </div>
   );
 };
